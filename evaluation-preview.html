@@ -1,0 +1,19 @@
+		<div class="demo-card-wide mdl-card mdl-shadow--2dp questionCard">
+			  <div class="mdl-card__title">
+			    <h2 class="mdl-card__title-text">Evaluation Preview</h2><div class="preview-link mdl-button" ui-sref="summary"><i class="material-icons">list</i></div>
+			    <!-- <button ng-click="logScope()">Log Scope</button> -->
+			  </div><!--End of Card Header -->
+			  
+			  <div class="row evaluation-preview-content previewCard">			  	
+			  	<preview-box content="result"></preview-box>
+			  </div><!--End of Row -->	
+
+			  <div class="mdl-card__actions mdl-card--border"><!--Footer begnning -->
+					<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" ng-click="success()" ngclipboard data-clipboard-target="#outputXML" ngclipboard-success="onCopySuccess(e);">
+			      Generate Definition
+			    	</a>
+			    	<span class="mdl-tooltip" ng-class="{'is-active' : outputXML.alertClass }" id="alertCopy">Copied Definition!</span>
+			  </div><!-- End of Footer -->	  
+		</div><!--End of Card -->
+
+<pre id="outputXML">{{outputXML.value}}</pre>

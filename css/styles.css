@@ -1,0 +1,229 @@
+/*------------------------------------   Overwrites  -------------------------------------*/
+.eval__nav {
+	background-color: #fff;
+	color: rgb(0,150,136);
+}
+
+.eval__nav i {
+	color: rgb(0,150,136);
+}
+
+.page-content .container {
+	margin-top: 25px;
+}
+
+.mdl-layout__content {
+	background-color: #fafafa;
+}
+
+.questionCard {
+	width: auto;
+}
+
+.previewCard {
+  min-height: 600px;
+}
+
+
+.questionCard .row {
+	padding-left: 16px;
+	padding-right: 16px;
+}
+
+/*-----  Overwrites for required attribute  ----*/
+.mdl-textfield.is-invalid .mdl-textfield__input {
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0,.12);
+}
+
+.mdl-textfield.is-invalid .mdl-textfield__label:after {
+  background-color: rgb(0,150,136);
+}
+
+.hasError .required:invalid {
+  border-bottom-color: #de3226;
+  transition: border-bottom-color 0.7s ease-in-out;
+}
+
+.hasError .required:invalid + label:after {
+  background-color: #de3226;
+}
+
+/*-----  Create own material design Select styles  ----*/
+select {
+  font-family: inherit;
+  background-color: transparent;
+  width: 100%;
+  padding: 4px 0;
+  font-size: 16px;
+  color: #333;
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0, 0.12);
+}
+
+input:focus,
+input:active,
+input {
+	outline: 0;
+	outline-color: transparent;
+}
+
+select option {
+	color: rgba(0,0,0,0.26);
+}
+
+/* Remove focus */
+select:focus {
+  outline: none;
+}
+
+/* Hide label */
+.mdl-selectfield label {
+  display: none;
+}
+
+/* Use custom arrow */
+.mdl-selectfield select {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+
+.mdl-selectfield {
+  font-family: 'Roboto','Helvetica','Arial',sans-serif;
+  position: relative;
+  padding-top: 18px;
+  padding-bottom: 20px;
+}
+.mdl-selectfield:after {
+  position: absolute;
+  /*top: 0.75em;*/
+  top: 45%;
+  /*right: 0.5em;*/
+  right: 20px;
+  /* Styling the down arrow */
+  width: 0;
+  height: 0;
+  padding: 0;
+  content: '';
+  border-left: .25em solid transparent;
+  border-right: .25em solid transparent;
+  border-top: 0.375em solid rgba(0,0,0, 0.12);
+  pointer-events: none;
+}
+
+.mdl-textfield {
+	width: 100%;
+}
+
+.mdl-checkbox__focus-helper,
+.mdl-checkbox__box-outline {
+	top: 23px;
+}
+.mdl-checkbox {
+	padding-top:20px;
+}
+
+.mdl-checkbox__ripple-container {
+	top: 14px;
+}
+
+/*------------------------------------   Own Classes -------------------------------------*/
+.collection {
+  padding: 10px;
+  margin-bottom:10px;
+  border: 1px solid #eee;
+  position:relative;
+}
+
+.collection--summary ul {
+  list-style-type:none;
+  padding-left: 0;
+}
+
+
+ul[dnd-list] .dndDraggingSource {
+    display: none;
+}
+
+.trash--questions > li,
+ul[dnd-list], 
+ul[dnd-list] > li { 
+    position: relative;
+}
+
+.trash--questions {
+  list-style-type: none;
+}
+
+
+ul[dnd-list] .dndPlaceholder {
+    display: block;
+    min-height: 70px;
+    border: 1px dashed #ddd;
+    margin-bottom:10px;
+}
+
+.trash--questions button{
+  margin-right: 8px;
+  border: 1px dashed #ddd;
+  padding-right: 10px;
+  cursor: default;
+}
+
+.trash--questions button:hover {
+  background-color: #fff;
+}
+
+.dndDragover.trash--questions button {
+  border: 1px solid #fff;
+  background-color: rgba(158,158,158,.2);
+}
+
+.questionCard {
+  margin: 0 auto 20px auto;
+}
+
+#outputXML {
+  margin-left: -99999px;
+  position: absolute;
+}
+
+#alertCopy {
+  top: auto;
+  left: auto;
+  margin-top: 4px;
+  margin-left: 10px;
+  position:absolute;
+}
+
+.mdl-button--input {
+  min-width: auto;
+  padding: 0 8px;
+  margin-left: 8px;
+}
+
+#inputXMLbutton {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.preview-link {
+  min-width:35px;
+  margin-left: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/*------------------------------------   Utility Classes -------------------------------------*/
+.text-center {
+	text-align: center;
+}
+
+.ng-enter {
+  background-color: blue !important;
+}

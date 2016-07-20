@@ -1,0 +1,81 @@
+		<div class="demo-card-wide mdl-card mdl-shadow--2dp questionCard">
+			  <div class="mdl-card__title">
+			    <h2 class="mdl-card__title-text">Question Summary</h2><div class="preview-link mdl-button" ui-sref="preview"><i class="material-icons">visibility</i></div>
+			  </div><!--End of Card Header -->
+			  
+			  <div class="row">
+			  	<div class="col-sm-10 col-sm-offset-1 collection--summary">
+			  		<ul dnd-list="questionList">
+			  			<li id="{{$index}}" ng-repeat="o in questionList" dnd-draggable="o" dnd-moved="questionList.splice($index, 1)"
+        dnd-effect-allowed="move" ng-dblclick="editQuestion($event)">		
+
+					  		<div class="collection" ng-if="o.question.type === 'TO'"><!-- TEXT SINGLE -->
+					  			<strong>Type:</strong> Small Text Response<br />
+					  			<strong>Prompt:</strong> {{ o.question.prompt }}<br />
+					  			<strong>Required:</strong> {{ o.question.required }}
+					  		</div>
+
+					  		<div class="collection" ng-if="o.question.type === 'TM'"><!-- TEXT MULTIPLE -->
+					  			<strong>Type:</strong> Large Text Response<br />
+					  			<strong>Prompt:</strong> {{ o.question.prompt }}<br />
+					  			<strong>Required:</strong> {{ o.question.required }}
+					  		</div>
+
+					  		<div class="collection" ng-if="o.question.type === 'FT'"><!-- FREE TEXT -->
+					  			<strong>Type:</strong> Free Text<br />
+					  			<strong>Prompt:</strong> {{ o.question.prompt }}
+					  		</div>
+
+					  		<div class="collection" ng-if="o.question.type === 'PO'"><!-- PICK ONE QUESTIONS -->
+					  			<strong>Type:</strong> Pick One Question<br />
+					  			<strong>Prompt:</strong> {{ o.question.prompt }}<br />
+					  			<strong>Required:</strong> {{ o.question.required }}<br />
+					  			<strong>Responses:</strong> <span ng-repeat="q in o.responses.vals">{{ q }}; </span>
+					  		</div>
+
+					  		<div class="collection" ng-if="o.question.type === 'PM'"><!-- PICK MANY QUESTIONS -->
+					  			<strong>Type:</strong> Pick Many Question<br />
+					  			<strong>Prompt:</strong> {{ o.question.prompt }}<br />
+					  			<strong>Required:</strong> {{ o.question.required }}<br />
+					  			<span ng-if="o.pickmany.maxPick === true"><strong>Max Picks:</strong> {{ o.pickmany.maxPickNumber }}<br /></span>
+					  			<strong>Responses:</strong> <span ng-repeat="q in o.responses.vals">{{ q }}; </span>
+					  		</div>
+
+					  		<div class="collection" ng-if="o.question.type === 'GR'"><!-- GRID QUESTIONS -->
+					  			<strong>Type:</strong> Grid Question<br />
+					  			<strong>Prompt:</strong> {{ o.grid.statement }}<br />
+					  			<strong>Column Scale:</strong> <span ng-repeat="q in o.grid.columnsValue">{{ q.prompt }}; </span><br />
+					  			<div ng-repeat="p in o.grid.questions.rowsValues">
+					  				<strong>Question {{ $index + 1 }}: </strong>{{ p.prompt }} <span ng-if="p.required === true"><em>(required)</em>
+					  			</div>
+					  		</div>
+
+
+					  	</li><!--End of repeat -->
+			  		</ul>
+			  		
+			  	</div>
+			  </div><!--End of Row -->
+
+
+
+
+
+			  <div class="mdl-card__actions mdl-card--border"><!--Footer begnning -->
+			    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" ng-click="success()" ngclipboard data-clipboard-target="#outputXML" ngclipboard-success="onCopySuccess(e);">
+			      Generate Definition
+			    </a>
+			    <span class="mdl-tooltip" ng-class="{'is-active' : outputXML.alertClass }" id="alertCopy">Copied Definition!</span>
+
+			    <span dnd-list="[]" class="trash--questions pull-right">
+			    <button class="mdl-button mdl-js-button mdl-js-ripple-effect">Drag to Delete <i class="material-icons">delete</i></button></span>
+			  </div>
+			  <div class="mdl-card__menu">
+			    <button class="mdl-button  mdl-js-button mdl-js-ripple-effect" ui-sref="question">
+			      Add More Questions <i class="material-icons">add</i>
+			    </button>
+			  </div><!--End of Footer -->
+			</div><!--End of Card -->
+
+
+	<pre id="outputXML">{{outputXML.value}}</pre>

@@ -1,0 +1,243 @@
+		<div class="demo-card-wide mdl-card mdl-shadow--2dp questionCard" style="margin: 0 auto;">
+			  <div class="mdl-card__title">
+			    <h2 class="mdl-card__title-text">Create an Evaluation 			    
+			    <input type="file" id="inputXMLbutton" onchange="angular.element(this).scope().uploadXMLdefinition(this)">
+			    <label for="inputXMLbutton" class="mdl-button mdl-button--input"><i class="material-icons">input</i></label>
+			    </h2>
+			  </div><!--End of Card Header -->
+			  
+			  <div class="row" ng-class="hasError? 'hasError' : ''">
+			  	<div class="mdl-selectfield col-sm-3">
+			        <label>Question Type</label>
+			        <select class="browser-default questionType" ng-model="currentQuestion.question.type" ng-change="changeQuestion()">
+			          <option value="" disabled selected>Choose your question type</option>
+			          <option value="TO">Small Text Response</option>
+			          <option value="TM">Large Text Response</option>
+			          <option value="PO">Pick One</option>
+			          <option value="PM">Pick Many</option>
+			          <option value="GR">Grid</option>
+			          <option value="FT">Free Text</option>
+			        </select> 
+			    </div><!-- Question Type -->
+			    <div class="col-sm-9 holder--TO" ng-if="currentQuestion.question.type === 'TO'">
+			    	<div class="row">
+			    		<div class="col-sm-8">
+				    		<div class="mdl-textfield mdl-js-textfield">
+							    <input class="mdl-textfield__input required" type="text" ng-model="currentQuestion.question.prompt" required>
+							    <label class="mdl-textfield__label" >Question...</label>
+							</div>
+				    	</div>
+				    	<div class="col-sm-1">
+				    		<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+							  <input type="checkbox" class="mdl-checkbox__input" ng-model="currentQuestion.question.required">
+							  <span class="mdl-checkbox__label">Required</span>
+							</label>
+				    	</div>	
+			    	</div>		    			    
+			    </div><!-- Small Text Holder (TO) -->
+
+			    <div class="col-sm-9 holder--TM" ng-if="currentQuestion.question.type === 'TM'">
+			    	<div class="row">
+			    		<div class="col-sm-8">
+				    		<div class="mdl-textfield mdl-js-textfield">
+							    <input class="mdl-textfield__input required" type="text" ng-model="currentQuestion.question.prompt" required>
+							    <label class="mdl-textfield__label">Question...</label>
+							</div>
+				    	</div>
+				    	<div class="col-sm-1">
+				    		<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+							  <input type="checkbox" class="mdl-checkbox__input" ng-model="currentQuestion.question.required">
+							  <span class="mdl-checkbox__label">Required</span>
+							</label>
+				    	</div>	
+			    	</div>			    			    
+			    </div><!-- Large Text Holder (TM) -->
+
+			    <div class="col-sm-9 holder--PM" ng-if="currentQuestion.question.type === 'PM'">
+			    	<div class="row">
+			    		<div class="col-sm-8">
+				    		<div class="mdl-textfield mdl-js-textfield">
+							    <input class="mdl-textfield__input required" type="text" ng-model="currentQuestion.question.prompt" required>
+							    <label class="mdl-textfield__label">Question...</label>
+							</div>
+				    	</div>
+				    	<div class="col-sm-1">
+				    		<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+							  <input type="checkbox" class="mdl-checkbox__input" ng-model="currentQuestion.question.required">
+							  <span class="mdl-checkbox__label">Required</span>
+							</label>
+				    	</div>
+			    	</div>
+			    	
+			    	<div class="row">
+			    		<div class="col-sm-4">
+			    			<div class="mdl-textfield mdl-js-textfield">
+							    <input class="mdl-textfield__input required" type="text" pattern="-?[0-9]*(\.[0-9]+)?" ng-model="currentQuestion.responses.number" ng-change="createListArray(currentQuestion.responses.numberArray, currentQuestion.responses.number)" required>
+							    <label class="mdl-textfield__label">Number of Responses</label>
+							</div>
+			    		</div>
+			    		<div class="col-sm-3">
+			    			<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+							  <input type="checkbox" class="mdl-checkbox__input" ng-model="currentQuestion.pickmany.maxPick">
+							  <span class="mdl-checkbox__label">Maximum Picks</span>
+							</label>
+			    		</div>
+			    		<div class="col-sm-4 col-sm-offset-1" ng-show="currentQuestion.pickmany.maxPick">
+			    			<div class="mdl-textfield mdl-js-textfield">
+							    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" ng-model="currentQuestion.pickmany.maxPickNumber">
+							    <label class="mdl-textfield__label">Number of Maximum Picks</label>
+							</div>
+			    		</div>		    		
+			    	</div>
+			    	<div class="row responseHolder">
+			    		<div class="col-sm-4" ng-repeat="o in currentQuestion.responses.numberArray">
+			    			<div class="mdl-textfield mdl-js-textfield">
+							    <input class="mdl-textfield__input required" type="text" ng-model="currentQuestion.responses.vals[$index]">
+							    <label class="mdl-textfield__label">Response {{ $index + 1 }}</label>
+							</div>
+			    		</div>
+			    	</div>	    	
+			    </div><!-- Pick Many Holder (PM) -->
+
+			    <div class="col-sm-9 holder--PO" ng-if="currentQuestion.question.type === 'PO'">
+			    	<div class="row">
+			    		<div class="col-sm-8">
+				    		<div class="mdl-textfield mdl-js-textfield">
+							    <input class="mdl-textfield__input required" type="text" ng-model="currentQuestion.question.prompt" required>
+							    <label class="mdl-textfield__label">Question...</label>
+							</div>
+				    	</div>
+				    	<div class="col-sm-1">
+				    		<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+							  <input type="checkbox" class="mdl-checkbox__input" ng-model="currentQuestion.question.required">
+							  <span class="mdl-checkbox__label">Required</span>
+							</label>
+				    	</div>
+			    	</div>
+			    	
+			    	<div class="row">
+			    		<div class="col-sm-4">
+			    			<div class="mdl-textfield mdl-js-textfield">
+							    <input class="mdl-textfield__input required" type="text" pattern="-?[0-9]*(\.[0-9]+)?" ng-model="currentQuestion.responses.number" ng-change="createListArray(currentQuestion.responses.numberArray, currentQuestion.responses.number)" required>
+							    <label class="mdl-textfield__label">Number of Responses</label>
+							</div>
+			    		</div>			    			    	
+			    	</div>
+			    	<div class="row responseHolder">
+			    		<div ng-repeat="o in currentQuestion.responses.numberArray">
+							<div class="col-sm-3">
+				    			<div class="mdl-textfield mdl-js-textfield">
+								    <input class="mdl-textfield__input required" type="text" ng-model="currentQuestion.responses.vals[$index]" required>
+								    <label class="mdl-textfield__label">Response {{ $index + 1 }}</label>
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="mdl-textfield mdl-js-textfield">
+								    <input class="mdl-textfield__input required" type="text" pattern="-?[0-9]*(\.[0-9]+)?" ng-model="currentQuestion.responses.weights[$index]">
+								    <label class="mdl-textfield__label">Weight {{ $index + 1 }} (optional)</label>
+								</div>
+							</div>
+			    		</div>
+			    	</div>	    	
+			    </div><!-- Pick One Holder (PO) -->
+
+			    <div class="col-sm-9 holder--GR" ng-if="currentQuestion.question.type === 'GR'">
+			    	<div class="row">
+			    		<div class="col-sm-8">
+				    		<div class="mdl-textfield mdl-js-textfield">
+							    <input class="mdl-textfield__input required" type="text" ng-model="currentQuestion.grid.statement" required>
+							    <label class="mdl-textfield__label">Overall Statement...</label>
+							</div>
+				    	</div>
+				    	<div class="col-sm-4">
+			    			<div class="mdl-textfield mdl-js-textfield">
+							    <input class="mdl-textfield__input required" type="text" pattern="-?[0-9]*(\.[0-9]+)?" ng-model="currentQuestion.grid.columnsNumber" ng-change="createListArray(currentQuestion.grid.columnsArray, currentQuestion.grid.columnsNumber)" required>
+							    <label class="mdl-textfield__label">Number of Response Columns</label>
+							</div>
+			    		</div>				    	
+			    	</div>
+
+			    	<div class="row gridColumnHolder">
+			    		<div class="column" ng-repeat="o in currentQuestion.grid.columnsArray">
+			    			<div class="col-sm-8">
+				    			<div class="mdl-textfield mdl-js-textfield">
+								    <input class="mdl-textfield__input required" type="text" ng-model="currentQuestion.grid.columnsValue[$index].prompt" required>
+								    <label class="mdl-textfield__label">Column {{ $index + 1 }}</label>
+								</div>
+				    		</div>
+				    		<div class="col-sm-4">
+				    			<div class="mdl-textfield mdl-js-textfield">
+								    <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" ng-model="currentQuestion.grid.columnsValue[$index].weight">
+								    <label class="mdl-textfield__label">Column Weight</label>
+								</div>
+				    		</div>
+			    		</div>
+			    	</div>
+
+			    	<div class="row">
+			    		<div class="col-sm-4">
+			    			<div class="mdl-textfield mdl-js-textfield">
+							    <input class="mdl-textfield__input" type="text" ng-model="currentQuestion.grid.scaleLeft">
+							    <label class="mdl-textfield__label">Left Scale (optional)</label>
+							</div>
+			    		</div>
+			    		<div class="col-sm-4">
+			    			<div class="mdl-textfield mdl-js-textfield">
+							    <input class="mdl-textfield__input" type="text" ng-model="currentQuestion.grid.scaleRight">
+							    <label class="mdl-textfield__label">Right Scale (optional)</label>
+							</div>
+			    		</div>
+			    		<div class="col-sm-4">
+			    			<div class="mdl-textfield mdl-js-textfield">
+								    <input class="mdl-textfield__input required" type="text" pattern="-?[0-9]*(\.[0-9]+)?" ng-model="currentQuestion.grid.questions.num" ng-change="createListArray(currentQuestion.grid.questions.rowsNumbers, currentQuestion.grid.questions.num)" required>
+								    <label class="mdl-textfield__label">Number of Question Rows</label>
+							</div>
+			    		</div>
+			    	</div>
+			    	
+			    	<div class="row gridQuestionText">
+			    		<div ng-repeat="o in currentQuestion.grid.questions.rowsNumbers">
+			    			<div class="col-sm-8">
+				    			<div class="mdl-textfield mdl-js-textfield">
+								    <input class="mdl-textfield__input required" type="text" ng-model="currentQuestion.grid.questions.rowsValues[$index].prompt" required>
+								    <label class="mdl-textfield__label">Question Row {{ $index + 1 }} Text</label>
+								</div>
+				    		</div>
+				    		<div class="col-sm-4">
+					    		<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+								  <input type="checkbox" class="mdl-checkbox__input" ng-model="currentQuestion.grid.questions.rowsValues[$index].required">
+								  <span class="mdl-checkbox__label">Required</span>
+								</label>
+					    	</div>
+			    		</div>			    		
+			    	</div>
+
+			    </div><!-- Grid Holder (GR) -->
+			    <div class="col-sm-9 holder--TO" ng-if="currentQuestion.question.type === 'FT'">
+			    	<div class="row">
+			    		<div class="col-sm-9">
+				    		<div class="mdl-textfield mdl-js-textfield">
+							    <input class="mdl-textfield__input required" type="text" ng-model="currentQuestion.question.prompt" required>
+							    <label class="mdl-textfield__label" >Insert Text Here...</label>
+							</div>
+				    	</div>				    	
+			    	</div>		    			    
+			    </div><!-- Free Text Holder (FT) -->
+
+			  </div><!--End of Row -->
+
+
+
+
+
+			  <div class="mdl-card__actions mdl-card--border"><!--Footer begnning -->
+			    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" ui-sref="summary">
+			      Evaluation Complete
+			    </a>
+			  </div>
+			  <div class="mdl-card__menu">
+			    <button class="mdl-button  mdl-js-button mdl-js-ripple-effect" ng-click="addQuestion(false)" ui-sref="question">
+			      Add to Evaluation <i class="material-icons">add</i>
+			    </button>
+			  </div><!--End of Footer -->
+			</div><!--End of Card -->
